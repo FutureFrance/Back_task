@@ -1,9 +1,26 @@
-import { ApolloServer } from "apollo-server";
+import express from 'express';
+import { ApolloServer } from "apollo-server-express";
 import { schema } from "./schema";
-import { db } from "./db";
+import { prisma } from "./db";
+import { isAdmin } from './middlewares/isAdmin';
 
-export const server = new ApolloServer({ schema, context: { db } });
+async function bootstrap() {
+  const app = express();
 
-server.listen().then(({ url }) => {
-  console.log(`🚀 Server ready at ${url}`);
-});
+  app.use("*", isAdmin as any);
+
+  const server = new ApolloServer({ 
+    schema, 
+    context: ({ req }) => ({ req, prisma }),
+    formatError: (err) => {      
+      return err;
+    }
+  });
+
+  await server.start();
+
+  server.applyMiddleware({ app });
+
+  app.listen(4000, () => console.log(`🚀 Server ready at http://localhost:4000`));
+}
+bootstrap();

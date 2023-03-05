@@ -1,4 +1,6 @@
 import { extendType, intArg, nonNull } from "nexus";
+import { UserResolver } from "../../resolvers/userResolvers";
+import { z } from "zod";
 
 export const user = extendType({
   type: "Query",
@@ -8,13 +10,7 @@ export const user = extendType({
       args: {
         id: nonNull(intArg()),
       },
-      resolve: async (_root, { id }, ctx, info) => {
-        const user = await ctx.db.user.findUnique({
-          where: { id },
-        });
-
-        return user;
-      },
+      resolve: UserResolver
     });
   },
 });

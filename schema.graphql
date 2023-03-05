@@ -3,6 +3,8 @@
 
 
 type Mutation {
+  activeProduct(active: Boolean!, id: Int!): Product
+  createProduct(data: ProductType!): Product
   createUser(email: String!, name: String!): User
 }
 
@@ -16,7 +18,19 @@ type Product {
   title: String!
 }
 
+input ProductType {
+  active: Boolean!
+  category: String!
+  color: String
+  description: String
+  owner: Int!
+  title: String!
+}
+
 type Query {
+  getProducts(amount: Int!, filter: String, start: Int!): [Product]
+  getUserProfile: User
+  product(id: Int!): Product
   user(id: Int!): User
 }
 

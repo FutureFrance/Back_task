@@ -1,12 +1,9 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 generator nexusPrisma {
-   provider = "nexus-prisma"
+  provider = "nexus-prisma"
 }
 
 datasource db {
@@ -28,6 +25,6 @@ model Product {
   category    String?
   color       String?
   active      Boolean @default(false)
-  owner       User    @relation(fields: [ownerId], references: [id])
   ownerId     Int
+  owner       User    @relation(fields: [ownerId], references: [id])
 }

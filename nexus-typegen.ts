@@ -14,6 +14,14 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  ProductType: { // input type
+    active: boolean; // Boolean!
+    category: string; // String!
+    color?: string | null; // String
+    description?: string | null; // String
+    owner: number; // Int!
+    title: string; // String!
+  }
 }
 
 export interface NexusGenEnums {
@@ -57,6 +65,8 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Mutation: { // field return type
+    activeProduct: NexusGenRootTypes['Product'] | null; // Product
+    createProduct: NexusGenRootTypes['Product'] | null; // Product
     createUser: NexusGenRootTypes['User'] | null; // User
   }
   Product: { // field return type
@@ -69,6 +79,9 @@ export interface NexusGenFieldTypes {
     title: string; // String!
   }
   Query: { // field return type
+    getProducts: Array<NexusGenRootTypes['Product'] | null> | null; // [Product]
+    getUserProfile: NexusGenRootTypes['User'] | null; // User
+    product: NexusGenRootTypes['Product'] | null; // Product
     user: NexusGenRootTypes['User'] | null; // User
   }
   User: { // field return type
@@ -81,6 +94,8 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
+    activeProduct: 'Product'
+    createProduct: 'Product'
     createUser: 'User'
   }
   Product: { // field return type name
@@ -93,6 +108,9 @@ export interface NexusGenFieldTypeNames {
     title: 'String'
   }
   Query: { // field return type name
+    getProducts: 'Product'
+    getUserProfile: 'User'
+    product: 'Product'
     user: 'User'
   }
   User: { // field return type name
@@ -105,12 +123,27 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    activeProduct: { // args
+      active: boolean; // Boolean!
+      id: number; // Int!
+    }
+    createProduct: { // args
+      data: NexusGenInputs['ProductType']; // ProductType!
+    }
     createUser: { // args
       email: string; // String!
       name: string; // String!
     }
   }
   Query: {
+    getProducts: { // args
+      amount: number; // Int!
+      filter?: string | null; // String
+      start: number; // Int!
+    }
+    product: { // args
+      id: number; // Int!
+    }
     user: { // args
       id: number; // Int!
     }
@@ -125,7 +158,7 @@ export interface NexusGenTypeInterfaces {
 
 export type NexusGenObjectNames = keyof NexusGenObjects;
 
-export type NexusGenInputNames = never;
+export type NexusGenInputNames = keyof NexusGenInputs;
 
 export type NexusGenEnumNames = never;
 

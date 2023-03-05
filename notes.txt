@@ -1,0 +1,19 @@
+I did not do the zod error handling, because i did not understood the layer i needed to do it at,
+since nexus already is to validate inputs.
+
+I did point 6 but i have the error where 'i think nexus' is returning every post to the front-end,
+while on back-end prisma is giving the needed results from DB and when i return to front-end 
+probably nexus over-writes it, i tried to solve this but i dont have much exp with nexus and 
+didnt figured it out in time
+
+***
+For queries/mutations which return products you must make the request with the 'role' header
+
+user: "234"
+admin: "490"
+
+as per task 6
+
+If you are admin you will make a request with header 'role' and it's value 490, if user the value: 234
+if you are admin you will get all products, if you are user you will get only products that are active: true
+***
